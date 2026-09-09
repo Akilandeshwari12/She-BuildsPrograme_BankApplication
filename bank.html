@@ -1,0 +1,195 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Application</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #aaa;
+        }
+
+        h1 {
+            text-align: center;
+            color: #174ea6;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #174ea6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d3b80;
+        }
+
+        .balance {
+            background: #e8f0fe;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏦 Bank Application</h1>
+
+    <h3>Customer Details</h3>
+
+    <input type="text" id="name" placeholder="Enter Customer Name">
+
+    <input type="number" id="account" placeholder="Enter Account Number">
+
+    <button onclick="createAccount()">Create Account</button>
+
+    <hr>
+
+    <h3>Bank Transactions</h3>
+
+    <input type="number" id="amount" placeholder="Enter Amount">
+
+    <button onclick="deposit()">Deposit</button>
+
+    <button onclick="withdraw()">Withdraw</button>
+
+    <button onclick="checkBalance()">Check Balance</button>
+
+    <div class="balance">
+        <h3>Account Balance</h3>
+        <h2>₹ <span id="balance">0</span></h2>
+    </div>
+
+    <p id="message"></p>
+
+</div>
+
+<script>
+
+    let customerName = "";
+    let accountNumber = "";
+    let balance = 0;
+
+    function createAccount() {
+
+        customerName = document.getElementById("name").value;
+        accountNumber = document.getElementById("account").value;
+
+        if (customerName === "" || accountNumber === "") {
+            showMessage("Please enter all customer details.");
+            return;
+        }
+
+        balance = 0;
+
+        showMessage(
+            "Account created successfully for " + customerName
+        );
+    }
+
+
+    function deposit() {
+
+        let amount = Number(document.getElementById("amount").value);
+
+        if (customerName === "") {
+            showMessage("Please create an account first.");
+            return;
+        }
+
+        if (amount <= 0) {
+            showMessage("Enter a valid amount.");
+            return;
+        }
+
+        balance = balance + amount;
+
+        document.getElementById("balance").innerText = balance;
+
+        showMessage("₹" + amount + " deposited successfully.");
+    }
+
+
+    function withdraw() {
+
+        let amount = Number(document.getElementById("amount").value);
+
+        if (customerName === "") {
+            showMessage("Please create an account first.");
+            return;
+        }
+
+        if (amount <= 0) {
+            showMessage("Enter a valid amount.");
+            return;
+        }
+
+        if (amount > balance) {
+            showMessage("Insufficient balance.");
+            return;
+        }
+
+        balance = balance - amount;
+
+        document.getElementById("balance").innerText = balance;
+
+        showMessage("₹" + amount + " withdrawn successfully.");
+    }
+
+
+    function checkBalance() {
+
+        if (customerName === "") {
+            showMessage("Please create an account first.");
+            return;
+        }
+
+        showMessage(
+            "Current balance: ₹" + balance
+        );
+    }
+
+
+    function showMessage(message) {
+
+        document.getElementById("message").innerText = message;
+
+    }
+
+</script>
+
+</body>
+</html>
+```
